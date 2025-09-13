@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "tsc -b && vite build --outDir docs",
+    "build": "tsc -b && vite build --outDir docs --base zagadki",
     "lint": "eslint .",
     "preview": "vite preview"
   },
