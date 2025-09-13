@@ -1,10 +1,35 @@
 import { useState } from "react";
-import { riddles } from "./riddles";
+import { riddles as allRiddles } from "./riddles";
+
 
 function App() {
+  const [riddleCategory, setRiddleCategory] = useState<keyof typeof allRiddles | null>(null);
   const [riddleNumber, setRiddleNumber] = useState(0);
   const [goodCount, setGoodCount] = useState(0);
   const [showCorrect, setShowCorrect] = useState<null | boolean>(null);
+  const riddles = riddleCategory ? allRiddles[riddleCategory] : null;
+
+  if (!riddleCategory || !riddles) {
+    return (
+      <div className="bg-indigo-900 w-screen h-screen flex flex-col items-center justify-center text-white text-center">
+        <div className="text-4xl">
+          <div className="text-9xl">GRA W ZAGADKI</div>
+          <div className="text-5xl my-16">Wybierz kategorię</div>
+          <div className="mt-8 flex flex-col gap-4">
+            {Object.keys(allRiddles).map((it) => (
+              <button
+                key={it}
+                className="bg-amber-600 text-black font-bold px-4 py-4 rounded-lg hover:bg-blue-600 transition"
+                onClick={() => setRiddleCategory(it as keyof typeof allRiddles)}
+              >
+                {it}
+              </button>
+            ))}
+          </div>
+        </div>
+      </div>
+    );
+  }
 
   const riddle = riddles.at(riddleNumber);
 
@@ -14,7 +39,7 @@ function App() {
         <div className="text-4xl">
           <div className="text-9xl">KONIEC</div>
           <div className="h-[50vh] mt-8 w-[80vh] rounded-3xl bg-gray-300 flex items-center justify-center text-black font-bold">
-            Twoj wynik to {goodCount} / {riddles.length}
+            Twój wynik to {goodCount} / {riddles.length}
           </div>
           <div className="mt-4 flex gap-4 items-center justify-center">
             <button
@@ -22,6 +47,7 @@ function App() {
               onClick={() => {
                 setRiddleNumber(0);
                 setGoodCount(0);
+                setRiddleCategory(null);
               }}
             >
               Zagraj ponownie
