@@ -12,19 +12,19 @@ function App() {
 
   if (!riddleCategory || !riddles) {
     return (
-      <div className="bg-indigo-900 min-h-screen w-full flex flex-col items-center justify-center text-white text-center px-2">
+      <div className="min-h-screen w-full flex flex-col items-center justify-center text-white text-center px-2 bg-gradient-to-br from-indigo-700 via-purple-500 to-pink-400">
         <div className="text-xl sm:text-3xl md:text-4xl w-full max-w-md mx-auto">
-          <div className="text-3xl sm:text-6xl md:text-8xl font-bold break-words">
+          <div className="text-4xl sm:text-7xl md:text-8xl font-extrabold break-words drop-shadow-lg font-[Comic Sans MS,Comic Sans,cursive] animate-bounce text-yellow-300">
             GRA W ZAGADKI
           </div>
-          <div className="text-lg sm:text-2xl md:text-4xl my-6 sm:my-10">
+          <div className="text-lg sm:text-2xl md:text-4xl my-6 sm:my-10 font-semibold text-pink-200">
             Wybierz kategorię
           </div>
-          <div className="mt-4 sm:mt-8 flex flex-col gap-2 sm:gap-4 w-full">
+          <div className="mt-4 sm:mt-8 flex flex-col gap-4 w-full">
             {Object.keys(allRiddles).map((it) => (
               <button
                 key={it}
-                className="bg-amber-600 text-black font-bold px-3 py-2 sm:px-4 sm:py-3 rounded-lg hover:bg-blue-600 transition text-base sm:text-lg w-full"
+                className="bg-gradient-to-r from-yellow-400 via-pink-300 to-orange-400 text-black font-bold px-4 py-3 rounded-xl shadow-lg hover:scale-105 hover:bg-pink-500 transition-all duration-200 text-base sm:text-lg w-full border-2 border-pink-200"
                 onClick={() => setRiddleCategory(it as keyof typeof allRiddles)}
               >
                 {it}
@@ -40,14 +40,14 @@ function App() {
 
   if (!riddle) {
     return (
-      <div className="bg-indigo-900 min-h-screen w-full flex items-center justify-center text-white px-2">
+      <div className="min-h-screen w-full flex items-center justify-center text-white px-2 bg-gradient-to-br from-indigo-700 via-purple-500 to-pink-400">
         <div className="flex flex-col items-center justify-center w-full h-full max-w-2xl mx-auto">
-          <div className="text-3xl sm:text-6xl md:text-8xl font-bold mb-8 text-center">KONIEC</div>
-          <div className="w-full max-w-xl mx-auto bg-gray-300 flex items-center justify-center text-black font-bold text-lg sm:text-2xl md:text-3xl py-16 px-4 mb-8 text-center">
+          <div className="text-4xl sm:text-7xl md:text-8xl font-extrabold mb-8 text-center drop-shadow-lg font-[Comic Sans MS,Comic Sans,cursive] text-yellow-300 animate-bounce">KONIEC</div>
+          <div className="w-full max-w-xl mx-auto bg-gray-100 flex items-center justify-center text-black font-bold text-lg sm:text-2xl md:text-3xl py-16 px-4 mb-8 text-center rounded-3xl shadow-2xl border-4 border-pink-200">
             Twój wynik to {goodCount} / {riddles.length}
           </div>
           <button
-            className="bg-amber-600 text-black font-bold px-6 py-4 rounded-lg hover:bg-blue-600 transition text-base sm:text-lg mx-auto"
+            className="bg-gradient-to-r from-yellow-400 via-pink-300 to-orange-400 text-black font-bold px-6 py-4 rounded-xl shadow-lg hover:scale-105 hover:bg-pink-500 transition-all duration-200 text-base sm:text-lg mx-auto border-2 border-pink-200"
             onClick={() => {
               setRiddleNumber(0);
               setGoodCount(0);
@@ -62,24 +62,20 @@ function App() {
   }
 
   return (
-    <div className="bg-indigo-900 min-h-screen w-full flex items-center justify-center text-white text-center px-2">
-      <div className="flex flex-col items-center w-full max-w-2xl mx-auto">
-        <div className="text-xl sm:text-3xl md:text-4xl mb-2">
-          <div className="text-lg sm:text-2xl md:text-4xl">
-            ZAGADKA {riddleNumber + 1} / {riddles.length}
-          </div>
-          <div className="text-base sm:text-lg md:text-2xl mt-2">
-            Poprawne odpowiedzi: {goodCount} / {riddleNumber}
-          </div>
+    <div className="min-h-screen w-full flex items-center justify-center text-white text-center px-2 bg-gradient-to-br from-indigo-700 via-purple-500 to-pink-400">
+      <div className="flex flex-col items-center w-full">
+        <div className="text-xl sm:text-3xl md:text-4xl mb-2 font-semibold text-pink-200">
+          <div className="text-lg sm:text-2xl md:text-4xl font-bold text-yellow-300 drop-shadow-lg">ZAGADKA {riddleNumber + 1} / {riddles.length}</div>
+          <div className="text-base sm:text-lg md:text-2xl mt-2 font-semibold text-pink-200">Poprawne odpowiedzi: {goodCount} / {riddleNumber}</div>
         </div>
-        <div className="mt-4 sm:mt-8 w-full max-w-xl mx-auto bg-yellow-100 flex items-center justify-center text-gray-800 text-lg sm:text-2xl md:text-4xl font-bold break-words py-10 px-4 rounded-2xl">
+        <div className="mt-4 sm:mt-8 w-full max-w-xl mx-auto bg-yellow-100 flex items-center justify-center text-gray-800 text-2xl sm:text-3xl md:text-4xl font-extrabold break-words py-10 px-4 rounded-3xl shadow-2xl border-4 border-pink-200">
           <div>{riddle?.question}</div>
         </div>
-        <div className="mt-8 flex flex-row gap-4 items-center justify-center w-full">
+        <div className="mt-8 flex flex-wrap gap-6 items-center justify-center w-full">
           {riddle?.answers.map((it) => (
             <button
               key={it.text}
-              className="bg-amber-600 text-black font-bold px-6 py-4 rounded-lg hover:bg-blue-600 transition text-base sm:text-lg"
+              className="bg-gradient-to-r from-yellow-400 via-pink-300 to-orange-400 text-black font-bold px-10 py-6 rounded-2xl shadow-xl hover:scale-110 hover:bg-pink-500 transition-all duration-200 text-2xl sm:text-3xl border-2 border-pink-200 min-w-[160px] max-w-full"
               onClick={() => {
                 setShowCorrect(it.isCorrect);
               }}
@@ -89,19 +85,17 @@ function App() {
           ))}
         </div>
         <div
-          className={`fixed left-0 top-0 w-full h-full flex flex-col items-center justify-center transition-opacity z-50 ${
-            showCorrect === true ? "bg-green-500" : ""
-          }`}
+          className={`fixed left-0 top-0 w-full h-full flex flex-col items-center justify-center transition-opacity z-50 ${showCorrect === true ? "bg-gradient-to-br from-green-400 via-yellow-300 to-pink-300" : ""}`}
           style={{
             opacity: showCorrect === true ? 1 : 0,
             pointerEvents: showCorrect === true ? "auto" : "none",
           }}
         >
-          <div className="font-black text-amber-100 mb-6 text-3xl sm:text-6xl md:text-8xl">
+          <div className="font-extrabold text-amber-100 mb-6 text-5xl sm:text-7xl md:text-9xl drop-shadow-lg animate-bounce font-[Comic Sans MS,Comic Sans,cursive]">
             DOBRZE
           </div>
           <button
-            className="bg-green-900 text-white font-bold px-3 py-2 sm:px-4 sm:py-3 rounded-lg hover:bg-amber-700 transition text-base sm:text-lg w-full sm:w-auto"
+            className="bg-gradient-to-r from-green-500 via-yellow-300 to-pink-400 text-black font-bold px-8 py-5 rounded-2xl shadow-xl hover:scale-110 hover:bg-pink-500 transition-all duration-200 text-lg border-2 border-yellow-300"
             onClick={() => {
               setRiddleNumber((n) => n + 1);
               setGoodCount((c) => c + 1);
@@ -113,19 +107,17 @@ function App() {
         </div>
 
         <div
-          className={`fixed left-0 top-0 w-full h-full flex flex-col items-center justify-center transition-opacity z-50 ${
-            showCorrect === false ? "bg-red-300" : ""
-          }`}
+          className={`fixed left-0 top-0 w-full h-full flex flex-col items-center justify-center transition-opacity z-50 ${showCorrect === false ? "bg-gradient-to-br from-red-400 via-pink-300 to-yellow-200" : ""}`}
           style={{
             opacity: showCorrect === false ? 1 : 0,
             pointerEvents: showCorrect === false ? "auto" : "none",
           }}
         >
-          <div className="font-black text-rose-800 mb-6 text-3xl sm:text-6xl md:text-8xl">
+          <div className="font-extrabold text-rose-800 mb-6 text-5xl sm:text-7xl md:text-9xl drop-shadow-lg animate-bounce font-[Comic Sans MS,Comic Sans,cursive]">
             ŹLE
           </div>
           <button
-            className="bg-white text-black font-bold px-3 py-2 sm:px-4 sm:py-3 rounded-lg hover:bg-amber-700 transition text-base sm:text-lg w-full sm:w-auto"
+            className="bg-gradient-to-r from-red-400 via-pink-300 to-yellow-200 text-black font-bold px-8 py-5 rounded-2xl shadow-xl hover:scale-110 hover:bg-yellow-300 transition-all duration-200 text-lg border-2 border-pink-300"
             onClick={() => {
               setRiddleNumber((n) => n + 1);
               setShowCorrect(null);
