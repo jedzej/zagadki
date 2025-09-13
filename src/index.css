@@ -1,1 +1,6 @@
 @import "tailwindcss";
+
+/* Custom mobile tweaks */
+body {
+	overscroll-behavior-y: contain;
+}
