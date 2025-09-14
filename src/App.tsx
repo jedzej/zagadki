@@ -91,57 +91,25 @@ function App() {
             </button>
           ))}
         </div>
-        <div
-          className={`fixed left-0 top-0 w-full h-full flex flex-col items-center justify-center transition-opacity z-50 ${
-            showCorrect === true
-              ? "bg-gradient-to-br from-green-400 via-yellow-300 to-pink-300"
-              : ""
-          }`}
-          style={{
-            opacity: showCorrect === true ? 1 : 0,
-            pointerEvents: showCorrect === true ? "auto" : "none",
-          }}
-        >
-          <div className="font-extrabold text-amber-100 mb-6 text-5xl sm:text-7xl md:text-9xl drop-shadow-lg animate-bounce font-[Comic Sans MS,Comic Sans,cursive]">
-            DOBRZE
-          </div>
-          <button
-            className="bg-gradient-to-r from-green-500 via-yellow-300 to-pink-400 text-black font-bold px-8 py-5 rounded-2xl shadow-xl hover:scale-110 hover:bg-pink-500 transition-all duration-200 text-lg border-2 border-yellow-300"
-            onClick={() => {
-              setRiddleNumber((n) => n + 1);
-              setGoodCount((c) => c + 1);
-              setShowCorrect(null);
-            }}
-          >
-            DALEJ
-          </button>
-        </div>
-
-        <div
-          className={`fixed left-0 top-0 w-full h-full flex flex-col items-center justify-center transition-opacity z-50 ${
-            showCorrect === false
-              ? "bg-gradient-to-br from-red-400 via-pink-300 to-yellow-200"
-              : ""
-          }`}
-          style={{
-            opacity: showCorrect === false ? 1 : 0,
-            pointerEvents: showCorrect === false ? "auto" : "none",
-          }}
-        >
-          <div className="font-extrabold text-rose-800 mb-6 text-5xl sm:text-7xl md:text-9xl drop-shadow-lg animate-bounce font-[Comic Sans MS,Comic Sans,cursive]">
-            ŹLE
-          </div>
-          <button
-            className="bg-gradient-to-r from-red-400 via-pink-300 to-yellow-200 text-black font-bold px-8 py-5 rounded-2xl shadow-xl hover:scale-110 hover:bg-yellow-300 transition-all duration-200 text-lg border-2 border-pink-300"
-            onClick={() => {
-              setRiddleNumber((n) => n + 1);
-              setShowCorrect(null);
-            }}
-          >
-            DALEJ
-          </button>
-        </div>
       </div>
+
+      <GoodBadPopup
+        show={showCorrect === true}
+        variant="good"
+        onNext={() => {
+          setRiddleNumber((n) => n + 1);
+          setGoodCount((c) => c + 1);
+          setShowCorrect(null);
+        }}
+      />
+      <GoodBadPopup
+        show={showCorrect === false}
+        variant="bad"
+        onNext={() => {
+          setRiddleNumber((n) => n + 1);
+          setShowCorrect(null);
+        }}
+      />
     </Wrapper>
   );
 }
@@ -154,6 +122,48 @@ const Wrapper: React.FC<{ children: React.ReactNode }> = ({ children }) => {
       )}
     >
       {children}
+    </div>
+  );
+};
+
+const GoodBadPopup: React.FC<{
+  show?: boolean;
+  variant: "good" | "bad";
+  onNext: () => void;
+}> = ({ show, onNext, variant }) => {
+  const isGood = variant === "good";
+  const cardRef = React.useRef<HTMLDivElement>(null);
+
+  return (
+    <div
+      ref={cardRef}
+      className={twMerge(
+        "fixed left-0 top-0 w-full h-full flex flex-col items-center justify-center transition-transform z-50",
+        isGood
+          ? "bg-gradient-to-br from-green-400 via-yellow-300 to-pink-300"
+          : "bg-gradient-to-br from-red-400 via-pink-300 to-yellow-200",
+        show ? "translate-x-0" : "-translate-x-full"
+      )}
+    >
+      <div
+        className={twMerge(
+          "font-extrabold mb-6 text-5xl sm:text-7xl md:text-9xl drop-shadow-lg animate-bounce font-[Comic Sans MS,Comic Sans,cursive]",
+          isGood ? "text-amber-100" : "text-rose-800"
+        )}
+      >
+        {isGood ? "DOBRZE" : "ŹLE"}
+      </div>
+      <button
+        className={twMerge(
+          "text-black font-bold px-8 py-5 rounded-2xl shadow-xl hover:scale-110 transition-all duration-200 text-lg border-2",
+          isGood
+            ? "bg-gradient-to-r from-green-500 via-yellow-300 to-pink-400 hover:bg-pink-500 border-yellow-300"
+            : "bg-gradient-to-r from-red-400 via-pink-300 to-yellow-200 hover:bg-yellow-300 border-pink-300"
+        )}
+        onClick={onNext}
+      >
+        DALEJ
+      </button>
     </div>
   );
 };
